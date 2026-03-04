@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+  web:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./web/src:/usr/share/nginx/html
+      - ./web/nginx.prod.conf:/etc/nginx/conf.d/default.conf
+      # SSL証明書をマウント（Let's Encrypt）
+      - /etc/letsencrypt/live/obasan-offline.net/fullchain.pem:/etc/nginx/ssl/fullchain.pem:ro
+      - /etc/letsencrypt/live/obasan-offline.net/privkey.pem:/etc/nginx/ssl/privkey.pem:ro
+      - /etc/letsencrypt/options-ssl-nginx.conf:/etc/nginx/ssl/options-ssl-nginx.conf:ro
+      - /etc/letsencrypt/ssl-dhparams.pem:/etc/nginx/ssl/ssl-dhparams.pem:ro
+    depends_on:
+      - api
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  api:
+    build: ./api
+    expose:
+      - "3000"
+    volumes:
+      - ./api/uploads:/app/uploads
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      SESSION_SECRET: ${SESSION_SECRET}
+      CORS_ORIGIN: ${CORS_ORIGIN}
+      UPLOAD_MAX_SIZE_MB: ${UPLOAD_MAX_SIZE_MB}
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  db:
+    image: mysql:8.0
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./db/init:/docker-entrypoint-initdb.d
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  db-data:
+    driver: local
+
+networks:
+  app-network:
+    driver: bridge

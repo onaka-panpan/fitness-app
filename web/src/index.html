@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>筋トレメニュー</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- ハンバーガーメニュー -->
+  <div id="menu-overlay" class="menu-overlay" onclick="closeMenu()"></div>
+  <nav id="side-menu" class="side-menu">
+    <div class="menu-header">
+      <h2>メニュー</h2>
+      <button class="close-btn" onclick="closeMenu()">&times;</button>
+    </div>
+    <ul class="menu-list">
+      <li><a href="#" onclick="navigateTo('home')">ホーム</a></li>
+      <li><a href="#" onclick="navigateTo('today')">本日のメニュー</a></li>
+      <li><a href="#" onclick="navigateTo('exercises')">種目一覧</a></li>
+      <li><a href="#" onclick="navigateTo('rotation')">ローテーション登録</a></li>
+      <li><a href="#" onclick="navigateTo('history')">履歴一覧</a></li>
+      <li class="menu-divider"></li>
+      <li><a href="#" onclick="logout()">ログアウト</a></li>
+    </ul>
+  </nav>
+
+  <!-- ヘッダー -->
+  <header class="header">
+    <button class="hamburger" onclick="openMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <h1 id="page-title">筋トレメニュー</h1>
+  </header>
+
+  <!-- メインコンテンツ -->
+  <main id="app" class="main-content">
+    <!-- 動的にコンテンツが挿入される -->
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
