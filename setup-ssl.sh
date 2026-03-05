@@ -22,8 +22,8 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # ドメイン設定
-DOMAIN="obasan-offline.net"
-WWW_DOMAIN="www.obasan-offline.net"
+DOMAIN="hogehoge.net"
+WWW_DOMAIN="www.hogehoge.net"
 
 # エラーハンドリング
 error_exit() {

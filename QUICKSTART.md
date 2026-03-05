@@ -1,6 +1,6 @@
 # fitness-app クイックスタートガイド
 
-このガイドでは、fitness-appを `obasan-offline.net` で公開するための最短手順を説明します。
+このガイドでは、fitness-appを `hogehoge.net` で公開するための最短手順を説明します。
 
 詳細な説明は [DEPLOYMENT.md](./DEPLOYMENT.md) を参照してください。
 
@@ -10,7 +10,7 @@
 
 - [ ] Ubuntu Server 20.04/22.04 LTS がセットアップ済み
 - [ ] サーバーのグローバルIPアドレスを確認済み
-- [ ] ドメイン `obasan-offline.net` の管理権限がある
+- [ ] ドメイン `hogehoge.net` の管理権限がある
 - [ ] SSH接続でサーバーにアクセス可能
 
 ---
@@ -26,7 +26,7 @@
 | @ | A | サーバーのIPアドレス |
 | www | A | サーバーのIPアドレス |
 
-**確認**: `nslookup obasan-offline.net` でIPが表示されればOK
+**確認**: `nslookup hogehoge.net` でIPが表示されればOK
 
 ---
 
@@ -89,8 +89,8 @@ cd /home/$USER/fitness-app
 
 # スタンドアロンモードで証明書取得
 sudo certbot certonly --standalone \
-  -d obasan-offline.net \
-  -d www.obasan-offline.net
+  -d hogehoge.net \
+  -d www.hogehoge.net
 ```
 
 メールアドレスを入力し、利用規約に同意。
@@ -140,8 +140,8 @@ openssl rand -base64 24  # パスワード用
 ## ✅ 動作確認
 
 ブラウザで以下にアクセス:
-- https://obasan-offline.net
-- https://www.obasan-offline.net
+- https://hogehoge.net
+- https://www.hogehoge.net
 
 ログイン画面が表示されればデプロイ成功！
 
@@ -197,7 +197,7 @@ sudo netstat -tlnp | grep :80
 ./deploy.sh stop
 
 # 再度証明書取得を試行
-sudo certbot certonly --standalone -d obasan-offline.net -d www.obasan-offline.net
+sudo certbot certonly --standalone -d hogehoge.net -d www.hogehoge.net
 ```
 
 ### エラー: アプリケーションにアクセスできない
@@ -218,8 +218,8 @@ sudo ufw status verbose
 DNS設定の反映には最大48時間かかる場合があります。以下で確認:
 
 ```bash
-nslookup obasan-offline.net
-dig obasan-offline.net
+nslookup hogehoge.net
+dig hogehoge.net
 ```
 
 ---

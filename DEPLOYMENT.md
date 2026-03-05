@@ -1,12 +1,12 @@
 # fitness-app デプロイガイド
 
-このガイドでは、fitness-appをUbuntuサーバーにデプロイして、ドメイン `obasan-offline.net` で公開する手順を説明します。
+このガイドでは、fitness-appをUbuntuサーバーにデプロイして、ドメイン `hogehoge.net` で公開する手順を説明します。
 
 ## 前提条件
 
 - Ubuntu Server 20.04/22.04 LTS
 - root権限またはsudo権限を持つユーザー
-- ドメイン: obasan-offline.net（DNS設定可能）
+- ドメイン: hogehoge.net（DNS設定可能）
 - サーバーのグローバルIPアドレス
 
 ---
@@ -80,8 +80,8 @@ exit
 | www | A | xxx.xxx.xxx.xxx | 3600 |
 
 **設定例**:
-- `obasan-offline.net` → サーバーIP
-- `www.obasan-offline.net` → サーバーIP
+- `hogehoge.net` → サーバーIP
+- `www.hogehoge.net` → サーバーIP
 
 **注意**: DNS設定の反映には数分〜48時間かかる場合があります。
 
@@ -89,8 +89,8 @@ exit
 
 ```bash
 # DNSが正しく設定されているか確認
-nslookup obasan-offline.net
-dig obasan-offline.net
+nslookup hogehoge.net
+dig hogehoge.net
 ```
 
 ---
@@ -155,14 +155,14 @@ NODE_ENV=production
 
 # フロントエンド設定
 WEB_PORT=8080
-FRONTEND_URL=https://obasan-offline.net
+FRONTEND_URL=https://hogehoge.net
 
 # バックエンド設定
 API_PORT=3000
 SESSION_SECRET=<ランダムな長い文字列に変更>
 
 # CORS設定
-CORS_ORIGIN=https://obasan-offline.net
+CORS_ORIGIN=https://hogehoge.net
 
 # ファイルアップロード設定
 UPLOAD_MAX_SIZE_MB=5
@@ -203,7 +203,7 @@ openssl rand -base64 24
 docker-compose -f docker-compose.prod.yml down
 
 # スタンドアロンモードで証明書取得
-sudo certbot certonly --standalone -d obasan-offline.net -d www.obasan-offline.net
+sudo certbot certonly --standalone -d hogehoge.net -d www.hogehoge.net
 ```
 
 プロンプトに従って入力:
@@ -212,8 +212,8 @@ sudo certbot certonly --standalone -d obasan-offline.net -d www.obasan-offline.n
 - メール共有: No（推奨）
 
 証明書の保存場所:
-- 証明書: `/etc/letsencrypt/live/obasan-offline.net/fullchain.pem`
-- 秘密鍵: `/etc/letsencrypt/live/obasan-offline.net/privkey.pem`
+- 証明書: `/etc/letsencrypt/live/hogehoge.net/fullchain.pem`
+- 秘密鍵: `/etc/letsencrypt/live/hogehoge.net/privkey.pem`
 
 ### 5.2 証明書の自動更新設定
 
@@ -288,8 +288,8 @@ docker exec -i fitness-app-db-1 mysql -ufitness_user -p'your_password' fitness_p
 ### 8.1 HTTPSアクセス確認
 
 ブラウザで以下にアクセス:
-- `https://obasan-offline.net`
-- `https://www.obasan-offline.net`
+- `https://hogehoge.net`
+- `https://www.hogehoge.net`
 
 ### 8.2 ログ確認
 
